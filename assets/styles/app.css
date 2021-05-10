@@ -1,0 +1,286 @@
+html {
+    height: 100%;
+}
+
+body {
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    margin: 0;
+    height: 100%;
+}
+
+/*nouveau style*/
+.top-bar {
+    background-color: #051622;
+    color: #fff;
+    font-size: .9rem;
+    padding: 10px 0;
+    flex: 1;
+}
+
+.top-bar p {
+    font-size: .75rem;
+}
+
+.container {
+    max-width: 71.25rem;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+}
+
+.top-bar-account {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    justify-content: center;
+}
+
+.top-bar-account a {
+    color: #FFFFFF;
+    text-decoration: none;
+    box-shadow: -2.5px 2px 2px #126B65;
+    padding: 0.5rem;
+    border-radius: 0.3rem;
+    border: solid 1px #126B65;
+    margin-left: 1rem;
+
+}
+
+.top-bar-account a:hover {
+    background-color: #126B65;
+
+}
+
+.top-bar-account a img {
+    margin-right: 0.5rem;
+
+}
+
+.top-bar-contact {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    flex: 1;
+
+}
+
+.top-bar-social {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    justify-content: center;
+}
+
+.top-bar-social a {
+    color: #FFFFFF;
+    text-decoration: none;
+    box-shadow: -2.5px 2px 2px #126B65;
+    padding: 0.5rem;
+    border-radius: 0.3rem;
+    border: solid 1px #126B65;
+    height: 1rem;
+    margin-left: 0.5rem;
+
+}
+
+.top-bar-social a:hover {
+    background-color: #126B65;
+
+}
+
+.top-navbar {
+    display: flex;
+}
+
+.navbar {
+    display: flex;
+    text-transform: uppercase;
+    width: 71.25rem;
+    max-width: 71.25rem;
+    margin: 0 auto;
+}
+
+.logo h1 {
+    margin: 0;
+    color: #555;
+
+}
+
+.logo h2 {
+    margin-top: -1rem;
+    margin-left: 7rem;
+    color: #126B65;
+    font-family: 'Shadows Into Light', cursive;
+}
+
+.logo_navbar {
+    flex: 1;
+}
+
+.logo_navbar img {
+    width: 3.125rem;
+}
+
+.menu_navbar {
+    display: flex;
+    flex: 2;
+}
+
+.menu {
+    display: flex;
+    flex: 2;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.menu a {
+    text-decoration: none;
+    color: #555;
+    padding: 0.5rem;
+    border-radius: 0.3rem;
+}
+
+.menu a:hover {
+    color: #126B65;
+}
+
+.bandeau-section {
+    max-width: 100%;
+    background-image: linear-gradient(rgba(27, 160, 152, 0.6), rgba(18, 107, 101, 0.6)), url("/public/images/pexels-brett-sayles-1493759.jpg");
+    background-size: cover;
+    padding: 1rem;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+
+}
+
+footer {
+
+    color: #FFFFFF;
+    max-width: 100%;
+
+}
+
+.info {
+
+    color: #FFFFFF;
+    width: 100%;
+    max-width: 100%;
+    background-color: #051622;
+    display: flex;
+    justify-content: space-around;
+    text-transform: uppercase;
+    font-size: .8rem;
+
+}
+
+.about-us {
+    display: flex;
+    flex: 1;
+    text-align: justify;
+}
+
+.about-us-description,.social-network, .contact {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    padding: 1rem;
+}
+
+.social-network a img{
+    color: #FFFFFF;
+    text-decoration: none;
+    box-shadow: -2.5px 2px 2px #126B65;
+    padding: 0.5rem;
+    border-radius: 0.3rem;
+    border: solid 1px #126B65;
+}
+
+.social-network a img:hover {
+    background-color: #126B65;
+
+}
+
+.social-network-link a{
+    margin-left: 0.5rem;
+}
+
+.contact-us a{
+    color: #FFFFFF;
+    text-decoration: none;
+    box-shadow: -2.5px 2px 2px #126B65;
+    padding: 0.5rem;
+    border-radius: 0.3rem;
+    border: solid 1px #126B65;
+}
+.contact-us a:hover{
+    background-color: #126B65;
+}
+
+
+.copyright{
+    background-color: #126B65;
+    display: flex;
+    justify-content: space-around;
+
+    text-transform: uppercase;
+}
+.copyright a{
+    color: #051622;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+.date{
+    flex: 1;
+    text-align: center;
+}
+.sub-footer{
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: space-around;
+}
+.footer-nav{
+    display: flex;
+    flex: 1;
+    justify-content: space-evenly;
+
+}
+.footer-nav a{
+    margin-left: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 0.3rem;
+
+}
+.footer-nav a:hover{
+    background-color: #051622;
+    color: #126B65;
+
+}
+.bandeau-section {
+    max-width: 100%;
+    background-image: linear-gradient(rgba(27, 160, 152, 0.6), rgba(18, 107, 101, 0.6)), url("/public/images/pexels-brett-sayles-1493759.jpg");
+    background-size: cover;
+    padding: 1rem;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+
+
+}
+.bandeau-section h2, .bandeau-section span{
+    color: #FFFFFF;
+    text-transform: uppercase;
+
+
+}

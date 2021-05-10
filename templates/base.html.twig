@@ -2,11 +2,11 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Bienevenue !{% endblock %}</title>
         {# Run `composer require symfony/webpack-encore-bundle`
            and uncomment the following Encore helpers to start using Symfony UX #}
         {% block stylesheets %}
-            {#{{ encore_entry_link_tags('app') }}#}
+            {{ encore_entry_link_tags('app') }}
         {% endblock %}
 
         {% block javascripts %}
@@ -14,6 +14,117 @@
         {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+       <header>
+
+    <div class="top-bar">
+        <div class="container">
+            <div class="top-bar-contact">
+                <p>Contactez-nous au XX XX XX XX XX ou contact@digital-library.fr.</p>
+            </div>
+            <div class="top-bar-account">
+                {# Si l'utilisateur est connecté on affiche le bouton de déconnexion #}
+                {% if app.user %}
+                    <a href="{{ path('security_logout') }}"><img
+                                src="{{ asset('images/icones/icons8-logout-rounded-left-14.png') }}" alt="icon_logout">Déconnexion</a>
+                    <a href="{{path('cart_index')}}">voir son panier</a>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('admin_dashboard') }}"><img
+                                    src="{{ asset('images/icones/icons8-dashboard-14.png') }}" alt="icon_dashboard">tableau
+                            de bord</a>
+                    {% endif %}
+                {% endif %}
+            </div>
+
+            <div class="top-bar-social">
+                <a href=""><img src="{{ asset('images/icones/icons8-facebook-f-16.png') }}" alt="icon_facebook"></a>
+                <a href=""><img src="{{ asset('images/icones/icons8-twitter-16.png') }}" alt="icon_twitter"></a>
+                <a href=""><img src="{{ asset('images/icones/icons8-important-mail-16.png') }}" alt="icon_contact"></a>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="top-navbar">
+        <div class="navbar">
+            <div class="logo_navbar">
+                <div class="logo">
+                    <h1><img src="{{ asset('images/icones/icons8-smartphone-tablet-50.png') }}" alt="icon_library">Digital
+                    </h1>
+                    <h2>Library</h2>
+                </div>
+            </div>
+            <div class="menu_navbar">
+                <div class="menu">
+                    <a href="{{ path('index') }}">Accueil</a>
+                    <a href="{{ path('books') }}">Livres</a>
+                    <a href="{{ path('search') }}">Rechercher</a>
+                    <a href="">Charte d'utilisation</a>
+                    <a href="{{ path('library') }}">ma bibliothèque</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+{% block body %}{% endblock %}
+<footer>
+    <div class="bandeau-section">
+        <div class="title">
+            <h3><cite>“Le livre est l'opium de l'Occident.”</cite></h3>
+        </div>
+        <div class="breadcrumb">
+            <span> <figcaption> Anatole France</figcaption></span>
+        </div>
+    </div>
+
+    <div class="info">
+        <div class="about-us">
+            <div class="about-us-description">
+                <h4>a propos de nous</h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias eligendi exercitationem libero non
+                    voluptatem.
+                    Architecto consequuntur cumque debitis dolorum eum eveniet, explicabo in incidunt iure mollitia nam
+                    officia
+                    quisquam saepe!</p>
+            </div>
+        </div>
+
+        <div class="social-network">
+            <h4>suivez-nous sur les réseaux sociaux</h4>
+            <div class="social-network-link">
+                <a href="#"><img src="{{ asset('images/icones/icons8-facebook-f-25.png') }}" alt=""></a>
+                <a href="#"><img src="{{ asset('images/icones/icons8-twitter-25.png') }}" alt=""></a>
+                <a href="#"><img src="{{ asset('images/icones/icons8-important-mail-25.png') }}" alt=""></a>
+            </div>
+        </div>
+
+        <div class="contact">
+            <div class="contact-us">
+                <h4>contact</h4>
+                <p>digital library</p>
+                <p>XX rue de la grande bibliothèque</p>
+                <p>XXXX la grande bibliothèque</p>
+                <p>france</p>
+                <a href="#">nous contactez</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="copyright">
+
+        <div class="date">
+            <p>&copy2021.digital library</p>
+        </div>
+        <div class="sub-footer">
+            <div class="footer-nav">
+                <a href="#">livres</a>
+                <a href="#">rechercher</a>
+                <a href="#">charte d'utilisation</a>
+                <a href="#">ma bibliothèque</a>
+            </div>
+        </div>
+    </div>
+</footer>
     </body>
 </html>

@@ -1,0 +1,89 @@
+
+.cover {
+    max-width: 100%;
+    width: 100%;
+    background-image: linear-gradient(rgba(27, 160, 152, 0.4), rgba(18, 107, 101, 0.4)), url("/public/images/Jedi_Archives.webp");
+    background-size: cover;
+    height: 25rem;
+    z-index: 1;
+    display: flex;
+}
+
+.cover-span {
+    z-index: 2;
+    bottom: 39rem;
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+}
+
+.cover-span h3 {
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.cover-span p {
+    color: #FFFFFF;
+    text-align: justify;
+    width: 80%;
+    margin: 0 auto;
+    padding: 3rem;
+}
+
+
+.cover-span a, article a {
+    color: #fff;
+    border: solid 1px #fff;
+    border-radius: 0.2rem;
+    width: 20%;
+    padding: 0.3rem;
+    text-decoration: none;
+    margin: 0 auto;
+
+}
+
+.cover-span a:hover {
+    background-color: #fff;
+    color: #126B65;
+}
+
+.msg_intro{
+    padding: 3.125rem 0;
+    background-color: #e9ecef;
+    text-align: center;
+}
+
+.msg_intro article{
+    width:71.25rem ;
+    max-width: 71.25rem;
+    margin: 0 auto;
+}
+
+
+.msg_intro h2{
+    letter-spacing: .1em;
+    font-size: 1.8rem;
+    color: #051622;
+}
+
+.msg_intro p{
+    font-family: 'Roboto', sans-serif;
+    color: #000;
+    font-weight: lighter;
+}
+
+.msg_intro a{
+    background-color: #051622;
+    text-decoration: none;
+    padding: 0.5rem;
+    border-radius: 0.3rem;
+}
+
+
+
+iframe{
+    text-align: center;
+}
