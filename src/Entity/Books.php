@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
-use App\Service\Api\callApi;
 use App\Repository\BooksRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -24,12 +25,12 @@ class Books
     private $name;
 
     /**
-     * @ORM\Column(type="array")
+     * @ORM\ManyToMany(targetEntity=Authors::class, inversedBy="books")
      */
-    public $author;
+    private $authors;
 
     /**
-     * @ORM\Column(type="array")
+     * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="books")
      */
     private $category;
 
@@ -39,27 +40,15 @@ class Books
     private $publication;
 
     /**
-     * @ORM\Column(type="string", length=500)
-     */
-    private $summary;
-
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $quantity;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $googleBookId;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $cover;
 
-
+    public function __construct()
+    {
+        $this->authors = new ArrayCollection();
+        $this->category = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -79,36 +68,51 @@ class Books
     }
 
     /**
-     * @return mixed
+     * @return Collection|Authors[]
      */
-    public function getAuthor()
+    public function getAuthors(): Collection
     {
-        return $this->author;
+        return $this->authors;
+    }
+
+    public function addAuthors(Authors $authors): self
+    {
+        if (!$this->author->contains($authors)) {
+            $this->authors[] = $authors;
+        }
+
+        return $this;
+    }
+
+    public function removeAuthors(Authors $authors): self
+    {
+        $this->authors->removeElement($authors);
+
+        return $this;
     }
 
     /**
-     * @param array $author
-     * @return array
+     * @return Collection|Category[]
      */
-    public function setAuthor(array $author): array
-    {
-        return $this->author = $author;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCategory()
+    public function getCategory(): Collection
     {
         return $this->category;
     }
 
-    /**
-     * @param mixed $category
-     */
-    public function setCategory(array $category): array
+    public function addCategoryId(Category $category): self
     {
-        return $this->category = $category;
+        if (!$this->category->contains($category)) {
+            $this->category[] = $category;
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Category $category): self
+    {
+        $this->category->removeElement($category);
+
+        return $this;
     }
 
     public function getPublication(): ?\DateTimeInterface
@@ -123,70 +127,6 @@ class Books
         return $this;
     }
 
-    public function getSummary(): ?string
-    {
-        return $this->summary;
-    }
-
-    public function setSummary(string $summary): self
-    {
-        $this->summary = $summary;
-
-        return $this;
-    }
-
-
-
-
-    public function getQuantity(): ?int
-    {
-        return $this->quantity;
-    }
-
-    public function setQuantity(int $quantity): self
-    {
-        $this->quantity = $quantity;
-
-        return $this;
-    }
-
-    public function getGoogleBookId(): ?string
-    {
-        return $this->googleBookId;
-    }
-
-    public function setGoogleBookId(string $googleBookId): self
-    {
-        $this->googleBookId = $googleBookId;
-
-        return $this;
-    }
-
-    public function getBook(callApi $callApi, string $name)
-    {
-        $books = $callApi->getBookData($name);
-        $listBook = json_decode($books);
-        $arrayBook = [];
-        foreach ($listBook->items as $item) {
-            $newBook = new Books();
-
-            $newBook->setName($item->volumeInfo->title);
-            $newBook->setGoogleBookId($item->id);
-
-            if (isset($item->volumeInfo->authors) && isset($item->volumeInfo->categories)) {
-                $newBook->setAuthor($item->volumeInfo->authors);
-                $newBook->setCategory($item->volumeInfo->categories);
-
-                $newBook->setPublication(new \DateTime($item->volumeInfo->publishedDate));
-                $item = $newBook;
-
-                array_push($arrayBook, $item);
-            }
-
-        }
-        return $arrayBook;
-    }
-
     public function getCover(): ?string
     {
         return $this->cover;
@@ -198,6 +138,4 @@ class Books
 
         return $this;
     }
-
-
 }
