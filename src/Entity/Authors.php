@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\AuthorsRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\AuthorsRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=AuthorsRepository::class)
@@ -21,11 +22,12 @@ class Authors
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("book:read")
      */
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Books::class, mappedBy="authors_id")
+     * @ORM\ManyToMany(targetEntity=Books::class, mappedBy="author")
      */
     private $books;
 
@@ -33,6 +35,10 @@ class Authors
     {
         $this->books = new ArrayCollection();
     }
+
+ 
+
+
 
     public function getId(): ?int
     {
@@ -63,7 +69,7 @@ class Authors
     {
         if (!$this->books->contains($book)) {
             $this->books[] = $book;
-            $book->addAuthorsId($this);
+            $book->addAuthor($this);
         }
 
         return $this;
@@ -72,9 +78,11 @@ class Authors
     public function removeBook(Books $book): self
     {
         if ($this->books->removeElement($book)) {
-            $book->removeAuthorsId($this);
+            $book->removeAuthor($this);
         }
 
         return $this;
     }
+
+
 }

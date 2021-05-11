@@ -27,7 +27,7 @@ class BooksCrudController extends AbstractCrudController
         return [
             TextField::new('name'),
             AssociationField::new('category'),
-            AssociationField::new('authors'),
+            AssociationField::new('author'),
             DateField::new('publication'),
             TextField::new('cover'),
             
