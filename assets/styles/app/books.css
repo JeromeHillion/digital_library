@@ -17,8 +17,8 @@
 }
 
 .info-section {
-    background: #124F7A;
-    color: #fff;
+    background: #fff;
+    color: #000;
     height: 35%;
     padding: .2rem;
 }
@@ -29,7 +29,7 @@
 }
 
 .info-section a{
-    color: #FFFFFF;
+    color: #000;
     text-decoration: none;
     box-shadow: -2.5px 2px 2px #20C7BC;
     padding: 0.5rem;
@@ -62,4 +62,29 @@
     border: solid 1px #ccc;
 
 
+}
+
+.pagination{
+    display: flex;
+    list-style: none;
+    font-size: 1.3rem;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.pagination li {
+    padding: 0.5rem;
+    background-color: #20C7BC;
+    text-decoration: none;
+    margin-right: 1rem;
+    border-radius: .2rem;
+    border: solid .1rem #ccc;
+}
+.pagination li a {
+    text-decoration: none;
+    color: #000;
+}
+
+.active{
+    background-color: #fff !important;
 }

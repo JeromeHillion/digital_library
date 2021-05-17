@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+{% block title %}livres{% endblock %}
+{% block stylesheets %}
+    {# ###########################################WebPack-encore######################################## #}
+    {{ encore_entry_link_tags('books') }}
+    {{ parent() }}
+{% endblock %}
+{% block body %}
+    <div class="bandeau-section">
+        <div class="title">
+            <h2>Livres</h2>
+        </div>
+        <div class="breadcrumb">
+            <span> accueil / livres</span>
+        </div>
+    </div>
+    <div class="cards-section">
+        <div class="section">
+            {% for book in books %}
+                <div class="card">
+                    <img src="{{ book.cover }}"  alt="book_cover">
+                    <div class="info-section">
+                        <h3>Auteur(s)</h3>
+                        <p><cite>
+                                {% for author in book.author %}
+                                    {{ author }}
+                                {% endfor %}
+                            </cite></p>
+                        <a href="{{path('book_details', {'id':book.id})}}">Voir les détails</a>
+                        <a id ="btn_add" href="{{path('cart_add', {'id': book.id})}}">ajouter au panier</a>
+                    </div>
+                </div>
+            {% endfor %}
+
+            
+        </div>
+        <ul class="pagination">
+            {% for item in 1..((total / limit) |round(0, 'ceil')) %}
+            {% if item == page %}
+            <li class="active">
+                <a href="?page={{item}}">{{item}}</a>
+                </li>
+                {% else %}
+                   <li>
+                <a href="?page={{item}}">{{item}}</a>
+                </li> 
+            {% endif %}
+                
+            {% endfor %}
+            </ul>
+    </div>
+
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    {{ encore_entry_script_tags('cart') }}
+{% endblock %}

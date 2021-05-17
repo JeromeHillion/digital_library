@@ -49,8 +49,6 @@ class BooksController extends AbstractController
                 $entityManager->flush();
             }
             
-
-dd($newBook);
         }    
        
     }

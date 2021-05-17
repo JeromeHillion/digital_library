@@ -73,6 +73,11 @@ class User implements UserInterface
      */
     private $apiToken;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Loan::class, mappedBy="user_id", cascade={"persist", "remove"})
+     */
+    private $loan;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -176,6 +181,28 @@ class User implements UserInterface
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
+    }
+
+    public function getLoan(): ?Loan
+    {
+        return $this->loan;
+    }
+
+    public function setLoan(?Loan $loan): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($loan === null && $this->loan !== null) {
+            $this->loan->setUserId(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($loan !== null && $loan->getUserId() !== $this) {
+            $loan->setUserId($this);
+        }
+
+        $this->loan = $loan;
+
+        return $this;
     }
 
 

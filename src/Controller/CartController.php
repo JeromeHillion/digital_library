@@ -3,10 +3,11 @@
 
 namespace App\Controller;
 
-
+use App\Entity\User;
 use App\Service\Cart\CartService;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class CartController extends abstractController
 {
@@ -18,9 +19,16 @@ class CartController extends abstractController
     public function index(CartService $cartService)
     {
         $cartDatas = $cartService->getFullCart();
-
+        $quantity = 0;
+        foreach ($cartDatas as $item) {
+            $quantity += $item['quantity'];
+        
+        }
+        $user = $this->getUser();
+/* dd($user->getFirstName()); */
         return $this->render('Cart/index.html.twig', [
-            'items' => $cartDatas
+            'items' => $cartDatas,
+            'quantity' => $quantity
         ]);
     }
 
@@ -37,7 +45,6 @@ class CartController extends abstractController
             'message' => 'Le livre a bien été ajouté !',
             'id' => $id
         ]);
-
     }
 
     /**
@@ -53,10 +60,9 @@ class CartController extends abstractController
             'message' => 'Le livre a bien été supprimé !',
             'id' => $id
         ]);
-
     }
 
-    
+
 
     /**
      * @Route("/library/panier/more", name="cart_plus")
@@ -65,12 +71,11 @@ class CartController extends abstractController
     public function more(CartService $cartService)
     {
         $cart = $cartService->getFullCart();
-      
+
 
         return $this->json([
             'code' => 200,
             'cart' => $cart
         ]);
-
     }
 }

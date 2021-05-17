@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+{% block title %}Panier{% endblock %}
+{% block stylesheets %}
+    {# ###########################################WebPack-encore######################################## #}
+    {{ encore_entry_link_tags('cart') }}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <div class="cart-container">
+    {% if items | length > 0 %}
+    <div class="cart">
+        <table>
+            <thead>
+            <tr>
+                <th>image du livre</th>
+                <th>Nom</th>
+                <th>Auteur(e)(s)</th>
+                <th>catégorie</th>
+                <th>quantité</th>
+                <th>action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in items %}
+                <tr id="book_{{item.book.id}}">
+                    <td><img src="{{ item.book.cover }}" alt=""></td>
+                    <td>{{ item.book.name }}</td>
+                    <td>
+                    {% for authors in item.book.author %}
+                        {{ authors }}
+                    {% endfor %}
+                    </td>
+                    
+                    {% for item in item.book.category %}
+                        <td>
+                        {{ item }}
+                    </td>
+                    {% endfor %}
+                    <td>quantité {{ item.quantity }}</td>
+                    <td>
+                        <div class="card-action">
+                        <div class="cart-delete">
+                            <a id="btn_delete" href="{{path('cart_delete', {'id':item.book.id})}}">Supprimer</a>
+                        </div>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            <tfoot>
+            <tr>
+            <th colspan='4'>total</th>
+            <td>{{quantity}}</td>
+            <td>
+
+        <div class="validation">
+        <a href="{{path('add_loan')}}"> Valider</a>
+        </div></td>
+            </tr>
+            </tfoot>
+        </table>
+        {% else %}
+        <p>Votre panier est vide...</p>
+        {% endif %}
+    </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    {{ encore_entry_script_tags('cart') }}
+{% endblock %}

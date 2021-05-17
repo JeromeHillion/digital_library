@@ -24,7 +24,7 @@ class Books
      * @ORM\Column(type="integer")
      * @Groups("book:read")
      */
-    private $id;
+    public $id;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -60,6 +60,11 @@ class Books
      * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="books", cascade={"persist"})
      */
     private $category;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Loan::class, inversedBy="book_copy_id")
+     */
+    private $loan;
 
     public function __construct()
     {
@@ -168,6 +173,18 @@ class Books
     public function removeCategory(Category $category): self
     {
         $this->category->removeElement($category);
+
+        return $this;
+    }
+
+    public function getLoan(): ?Loan
+    {
+        return $this->loan;
+    }
+
+    public function setLoan(?Loan $loan): self
+    {
+        $this->loan = $loan;
 
         return $this;
     }

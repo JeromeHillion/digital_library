@@ -6,11 +6,12 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Repository\BooksRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class MainController extends abstractController
 {
@@ -73,16 +74,30 @@ class MainController extends abstractController
         return $this->render('library/search.html.twig');
     }
 
+    /*Pagination pour les livres coté utilisateur */
+
     /**
      * @Route("/library/livres" , name="books")
      */
 
-    public function books(BooksRepository $booksRepository){
+    public function books(BooksRepository $booksRepository, Request $request){
 
-        $books= $booksRepository->findAll();
+        //On définitle nombre d'éléments par page
+        $limit = 15;
+
+        $page = (int)$request->query->get("page", 1);
+
+        $books= $booksRepository->getPaginatedBooks($page, $limit);
+        $total = $booksRepository->getTotalBooks();
+        /* dd($total); */
+
+        /* dd($books); */
 
         return $this->render('library/books.html.twig',[
-            "books" => $books
+            "books" => $books,
+            "total" => $total,
+            "limit" => $limit,
+            "page" => $page
         ]);
     }
 

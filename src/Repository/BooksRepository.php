@@ -19,6 +19,23 @@ class BooksRepository extends ServiceEntityRepository
         parent::__construct($registry, Books::class);
     }
 
+
+    public function getPaginatedBooks($page, $limit){
+        $query = $this->createQueryBuilder('a')
+        ->where('a.id >=0')
+        ->orderBy('a.name', 'ASC')
+        ->setFirstResult(($page * $limit) - $limit)
+        ->setMaxResults($limit);
+
+        return $query->getQuery()->getResult();
+    }
+
+    public function getTotalBooks(){
+        $query = $this->createQueryBuilder('a')
+        ->select('COUNT(a)');
+
+        return $query->getQuery()->getSingleScalarResult();
+    }
     // /**
     //  * @return Books[] Returns an array of Books objects
     //  */
