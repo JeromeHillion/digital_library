@@ -19,10 +19,7 @@ class Loan
      */
     private $id;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Books::class, mappedBy="loan")
-     */
-    private $book_copy_id;
+   
 
     /**
      * @ORM\Column(type="date")
@@ -39,45 +36,21 @@ class Loan
      */
     private $status;
 
-    public function __construct()
-    {
-        $this->book_copy_id = new ArrayCollection();
-    }
+    /**
+     * @ORM\OneToOne(targetEntity=Books::class, cascade={"persist", "remove"})
+     */
+    private $book_id;
+
+
+
+ 
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * @return Collection|Books[]
-     */
-    public function getBookCopyId(): Collection
-    {
-        return $this->book_copy_id;
-    }
-
-    public function addBookCopyId(Books $bookCopyId): self
-    {
-        if (!$this->book_copy_id->contains($bookCopyId)) {
-            $this->book_copy_id[] = $bookCopyId;
-            $bookCopyId->setLoan($this);
-        }
-
-        return $this;
-    }
-
-    public function removeBookCopyId(Books $bookCopyId): self
-    {
-        if ($this->book_copy_id->removeElement($bookCopyId)) {
-            // set the owning side to null (unless already changed)
-            if ($bookCopyId->getLoan() === $this) {
-                $bookCopyId->setLoan(null);
-            }
-        }
-
-        return $this;
-    }
+    
 
     public function getDateLoan(): ?\DateTimeInterface
     {
@@ -114,4 +87,18 @@ class Loan
 
         return $this;
     }
+
+    public function getBookId(): ?Books
+    {
+        return $this->book_id;
+    }
+
+    public function setBookId(?Books $book_id): self
+    {
+        $this->book_id = $book_id;
+
+        return $this;
+    }
+
+   
 }

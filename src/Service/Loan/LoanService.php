@@ -9,7 +9,7 @@ use App\Entity\Books;
 use App\Service\Cart\CartService;
 use App\Repository\BooksRepository;
 use Symfony\Component\Security\Core\Security;
-
+use Doctrine\ORM\EntityManagerInterface;
 /*Classe service pour la gestion des commandes */
 
 class LoanService
@@ -17,13 +17,15 @@ class LoanService
     protected $cartService;
     protected $booksRepository;
     private $security;
+
    
 
-    public function __construct(CartService $cartService, BooksRepository $booksRepository, Security $security)
+    public function __construct(CartService $cartService, BooksRepository $booksRepository, Security $security, EntityManagerInterface $entityManager)
     {
         $this->cartService = $cartService;
         $this->booksRepository = $booksRepository;
-        $this->security = $security;
+        $this->security = $security; 
+        $this->entityManager = $entityManager; 
        
       
     }
@@ -31,6 +33,8 @@ class LoanService
     public function add() {
 
     $cart = $this->cartService->getFullCart();
+
+ $entityManager = $this->entityManager->getDoctrine()->getManager();
     $loan = new Loan();
     foreach ($cart as $item){
              /* $books = $this->booksRepository->findBy(["id" => $bookCopyId]);*/
@@ -38,14 +42,18 @@ class LoanService
                 
              $loan->setStatus('Confirmé');
                $loan->setDateLoan(new DateTime('now'));
-               /** @var \App\Entity\User $user */
+              
                $user = $this->security->getUser();
                $loan->setUserId($user);
         
-        
+          
       
     }
+  
+    $entityManager->persist($loan);
+    $entityManager->flush();
 
-       return $loan;
+
+    return $this-> $entityManager->redirectToRoute('index');
     }
 }

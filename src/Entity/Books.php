@@ -52,24 +52,26 @@ class Books
     private $summary;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Authors::class, inversedBy="books", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity=Authors::class, inversedBy="books", cascade={"persist", "remove"})
      */
     private $author;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="books", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="books", cascade={"persist", "remove"})
      */
     private $category;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Loan::class, inversedBy="book_copy_id")
+     * @ORM\ManyToMany(targetEntity=Loan::class, mappedBy="book_id")
      */
-    private $loan;
+    private $loans;
+
 
     public function __construct()
     {
         $this->author = new ArrayCollection();
         $this->category = new ArrayCollection();
+        $this->loans = new ArrayCollection();
     }
 
 
@@ -177,15 +179,32 @@ class Books
         return $this;
     }
 
-    public function getLoan(): ?Loan
+    /**
+     * @return Collection|Loan[]
+     */
+    public function getLoans(): Collection
     {
-        return $this->loan;
+        return $this->loans;
     }
 
-    public function setLoan(?Loan $loan): self
+    public function addLoan(Loan $loan): self
     {
-        $this->loan = $loan;
+        if (!$this->loans->contains($loan)) {
+            $this->loans[] = $loan;
+           
+        }
 
         return $this;
     }
+
+    public function removeLoan(Loan $loan): self
+    {
+        if ($this->loans->removeElement($loan)) {
+            
+        }
+
+        return $this;
+    }
+
+
 }
