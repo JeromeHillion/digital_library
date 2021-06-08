@@ -56,15 +56,13 @@ class Books
      */
     private $author;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="books", cascade={"persist", "remove"})
-     */
-    private $category;
+
+    private $loans;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Loan::class, mappedBy="book_id")
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="books")
      */
-    private $loans;
+    private $category;
 
 
     public function __construct()
@@ -155,29 +153,7 @@ class Books
         return $this;
     }
 
-    /**
-     * @return Collection|Category[]
-     */
-    public function getCategory(): Collection
-    {
-        return $this->category;
-    }
 
-    public function addCategory(Category $category): self
-    {
-        if (!$this->category->contains($category)) {
-            $this->category[] = $category;
-        }
-
-        return $this;
-    }
-
-    public function removeCategory(Category $category): self
-    {
-        $this->category->removeElement($category);
-
-        return $this;
-    }
 
     /**
      * @return Collection|Loan[]
@@ -202,6 +178,18 @@ class Books
         if ($this->loans->removeElement($loan)) {
             
         }
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }

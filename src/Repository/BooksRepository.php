@@ -19,7 +19,7 @@ class BooksRepository extends ServiceEntityRepository
         parent::__construct($registry, Books::class);
     }
 
-
+//Gestion de la pagination
     public function getPaginatedBooks($page, $limit){
         $query = $this->createQueryBuilder('a')
         ->where('a.id >=0')

@@ -27,7 +27,7 @@ class Category
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Books::class, mappedBy="category")
+     * @ORM\OneToMany(targetEntity=Books::class, mappedBy="category")
      */
     private $books;
 
@@ -35,6 +35,9 @@ class Category
     {
         $this->books = new ArrayCollection();
     }
+
+
+
 
     public function getId(): ?int
     {
@@ -72,7 +75,7 @@ class Category
     {
         if (!$this->books->contains($book)) {
             $this->books[] = $book;
-            $book->addCategory($this);
+            $book->setCategory($this);
         }
 
         return $this;
@@ -81,11 +84,16 @@ class Category
     public function removeBook(Books $book): self
     {
         if ($this->books->removeElement($book)) {
-            $book->removeCategory($this);
+            // set the owning side to null (unless already changed)
+            if ($book->getCategory() === $this) {
+                $book->setCategory(null);
+            }
         }
 
         return $this;
     }
+
+
 
 
 }
